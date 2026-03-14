@@ -1,0 +1,156 @@
+{
+    "type": "object",
+    "required": ["users", "total", "skip", "limit"],
+    "additionalProperties": "False",
+    "properties": {
+        "users": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": "False",
+                "required": [
+                    "id", "firstName", "lastName", "maidenName",
+                    "age", "gender", "email", "phone", "username",
+                    "password", "birthDate", "image", "bloodGroup",
+                    "height", "weight", "eyeColor", "hair", "ip",
+                    "address", "macAddress", "university", "bank",
+                    "company", "ein", "ssn", "userAgent", "crypto", "role"
+                ],
+                "properties": {
+                    "id": {"type": "integer"},
+                    "firstName": {"type": "string"},
+                    "lastName": {"type": "string"},
+                    "maidenName": {"type": "string"},
+                    "age": {"type": "integer"},
+                    "gender": {"type": "string"},
+                    "email": {"type": "string", "format": "email"},
+                    "phone": {"type": "string"},
+                    "username": {"type": "string"},
+                    "password": {"type": "string"},
+                    "birthDate": {"type": "string"},
+                    "image": {"type": "string"},
+                    "bloodGroup": {"type": "string"},
+                    "height": {"type": ["number", "null"]},
+                    "weight": {"type": ["number", "null"]},
+                    "eyeColor": {"type": "string"},
+                    "ip": {"type": "string"},
+                    "macAddress": {"type": "string"},
+                    "university": {"type": "string"},
+                    "ein": {"type": "string"},
+                    "ssn": {"type": "string"},
+                    "userAgent": {"type": "string"},
+                    "role": {
+                        "type": "string",
+                        "enum": ["admin", "user"]
+                    },
+
+                    "hair": {
+                        "type": "object",
+                        "additionalProperties": "False",
+                        "required": ["color", "type"],
+                        "properties": {
+                            "color": {"type": "string"},
+                            "type": {"type": "string"}
+                        }
+                    },
+
+                    "address": {
+                        "type": "object",
+                        "additionalProperties": "False",
+                        "required": [
+                            "address", "city", "state", "stateCode",
+                            "postalCode", "coordinates", "country"
+                        ],
+                        "properties": {
+                            "address": {"type": "string"},
+                            "city": {"type": "string"},
+                            "state": {"type": "string"},
+                            "stateCode": {"type": "string"},
+                            "postalCode": {"type": "string"},
+                            "country": {"type": "string"},
+                            "coordinates": {
+                                "type": "object",
+                                "additionalProperties": False,
+                                "required": ["lat", "lng"],
+                                "properties": {
+                                    "lat": {"type": ["number", "null"]},
+                                    "lng": {"type": ["number", "null"]}
+                                }
+                            }
+                        }
+                    },
+
+                    "bank": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": [
+                            "cardExpire", "cardNumber",
+                            "cardType", "currency", "iban"
+                        ],
+                        "properties": {
+                            "cardExpire": {"type": "string"},
+                            "cardNumber": {"type": "string"},
+                            "cardType": {"type": "string"},
+                            "currency": {"type": "string"},
+                            "iban": {"type": "string"}
+                        }
+                    },
+
+                    "company": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": [
+                            "department", "name",
+                            "title", "address"
+                        ],
+                        "properties": {
+                            "department": {"type": "string"},
+                            "name": {"type": "string"},
+                            "title": {"type": "string"},
+                            "address": {
+                                "type": "object",
+                                "additionalProperties": False,
+                                "required": [
+                                    "address", "city", "state",
+                                    "stateCode", "postalCode",
+                                    "coordinates", "country"
+                                ],
+                                "properties": {
+                                    "address": {"type": "string"},
+                                    "city": {"type": "string"},
+                                    "state": {"type": "string"},
+                                    "stateCode": {"type": "string"},
+                                    "postalCode": {"type": "string"},
+                                    "country": {"type": "string"},
+                                    "coordinates": {
+                                        "type": "object",
+                                        "additionalProperties": False,
+                                        "required": ["lat", "lng"],
+                                        "properties": {
+                                            "lat": {"type": ["number", "null"]},
+                                            "lng": {"type": ["number", "null"]}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+
+                    "crypto": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": ["coin", "wallet", "network"],
+                        "properties": {
+                            "coin": {"type": "string"},
+                            "wallet": {"type": "string"},
+                            "network": {"type": "string"}
+                        }
+                    }
+                }
+            }
+        },
+        "total": {"type": "integer"},
+        "skip": {"type": "integer"},
+        "limit": {"type": "integer"}
+    }
+}
