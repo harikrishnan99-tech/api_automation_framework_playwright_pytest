@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+
+    environment {
+        VENV = "venv"
+    }
+
+    stages {
+
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://your-repo-url.git'
+            }
+        }
+
+        stage('Setup Python Environment') {
+            steps {
+                sh '''
+                python3 -m venv $VENV
+                source $VENV/bin/activate
+                pip install --upgrade pip
+                pip install -r requirements.txt
+                '''
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh '''
+                source $VENV/bin/activate
+                pytest --alluredir=reports/allure-results
+                '''
+            }
+        }
+
+        stage('Generate Allure Report') {
+            steps {
+                allure includeProperties: false,
+                       jdk: '',
+                       results: [[path: 'reports/allure-results']]
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Execution completed"
+        }
+        failure {
+            echo "Tests failed ❌"
+        }
+        success {
+            echo "Tests passed ✅"
+        }
+    }
+}
