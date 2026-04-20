@@ -6,20 +6,17 @@ WORKDIR /app
 
 # Install system dependencies required for Playwright browsers
 RUN apt-get update && apt-get install -y \
-    wget \
-    gnupg \
-    ca-certificates \
-    procps \
-    libgtk2.0-0 \
-    libgtk-3-0 \
-    libgbm-dev \
-    libnotify-dev \
-    libgconf-2-4 \
-    libnss3-dev \
+    libglib2.0-0 \
+    libnss3 \
+    libatk-bridge2.0-0 \
+    libdrm2 \
+    libxkbcommon0 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    libgbm1 \
     libxss1 \
-    libasound2-dev \
-    libxtst6 \
-    xauth \
+    libasound2 \
     nodejs \
     npm \
     && rm -rf /var/lib/apt/lists/*
