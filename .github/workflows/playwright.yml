@@ -43,7 +43,7 @@ jobs:
     - name: Run pytest tests with Allure reporting
       run: |
         source venv/bin/activate
-        PYTHONPATH=. pytest --alluredir=reports/allure-results || true
+        PYTHONPATH=. pytest || true
 
     - name: Install Allure CLI
       run: npm install -g allure-commandline
