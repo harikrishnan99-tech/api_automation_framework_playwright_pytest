@@ -60,6 +60,43 @@ pip install -r requirements.txt
 
 ---
 
+## 🐳 Running with Docker
+
+For easy setup and execution without installing dependencies locally, use Docker.
+
+### Prerequisites
+- Docker installed on your system
+
+### Build and Run
+
+1. **Build the Docker image:**
+   ```bash
+   docker build -t api-automation .
+   ```
+
+2. **Run tests with report output:**
+   ```bash
+   docker run --rm -v $(pwd)/reports:/app/reports api-automation
+   ```
+
+   This command:
+   - Builds and runs the tests in a container
+   - Mounts your local `reports/` directory to access Allure results
+   - Generates Allure reports that you can view locally
+
+3. **View the Allure report:**
+   ```bash
+   allure serve reports/allure-results
+   ```
+
+### Alternative: Run without mounting reports
+If you don't need to access reports locally:
+```bash
+docker run --rm api-automation
+```
+
+---
+
 ## 🧪 Running Tests
 
 ### Run All Tests
@@ -168,7 +205,44 @@ Checkout Code → Setup Python Environment → Run Tests → Generate Allure Rep
 
 This framework uses **Allure** for rich, interactive test reports.
 
-- Results are written to `reports/allure-results/` on every test run.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+This project is for internal use. Please refer to your organization's licensing policy.## 📄 License---4. Follow the existing project structure and naming conventions.3. Ensure all tests pass locally before raising a PR.2. Write tests with appropriate markers (`smoke` or `healthcheck`).1. Create a feature branch from `main`.## 🤝 Contributing---```playwright install```bashInstall Playwright browsers after pip install:```allure-pytestpytest-asynciopytest-playwrightpytest```Key packages expected in `requirements.txt`:## 📦 Dependencies---- For local viewing, run `allure serve reports/allure-results`.- The Jenkins pipeline publishes the Allure report automatically after the test stage.- Results are written to `reports/allure-results/` on every test run.- Results are written to `reports/allure-results/` on every test run.
 - The Jenkins pipeline publishes the Allure report automatically after the test stage.
 - For local viewing, run `allure serve reports/allure-results`.
 
