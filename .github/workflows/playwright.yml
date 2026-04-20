@@ -1,0 +1,61 @@
+# GitHub Actions workflow for Python API automation testing with pytest and Playwright
+# This workflow runs automated tests on every push, generates Allure reports, and uploads them as artifacts
+
+name: Playwright API Tests
+
+on:
+  push:
+    branches: [ "*" ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Create virtual environment and install dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
+
+    - name: Install Playwright and browser binaries
+      run: |
+        source venv/bin/activate
+        playwright install --with-deps
+
+    - name: Run pytest tests with Allure reporting
+      run: |
+        source venv/bin/activate
+        PYTHONPATH=. pytest --alluredir=reports/allure-results || true
+
+    - name: Install Allure CLI
+      run: npm install -g allure-commandline
+
+    - name: Generate Allure HTML report
+      if: always()
+      run: allure generate reports/allure-results --clean -o reports/allure-report
+
+    - name: Upload Allure report as artifact
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-report
+        path: reports/allure-report
+        retention-days: 7
